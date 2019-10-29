@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="RtlHardcoded">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/refresh">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chatRoomList"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                android:layout_above="@id/view"
+                android:divider="#ffffff"
+                android:dividerHeight="0px"
+                android:overScrollMode="never"
+                android:stackFromBottom="true"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="56dp"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            android:background="@color/colorAccent"/>
+
+</RelativeLayout>

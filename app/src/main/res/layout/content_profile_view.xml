@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:diagonal="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/activity_main"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#EEEEEE"
+              android:orientation="vertical">
+
+    <com.github.florent37.diagonallayout.DiagonalLayout
+            android:id="@+id/diagonalLayout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            diagonal:diagonal_angle="10"
+            diagonal:diagonal_position="bottom"
+            diagonal:diagonal_direction="left">
+
+        <ImageView
+                android:id="@+id/back_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:transitionName="back_image"
+                android:scaleType="centerCrop"
+                android:src="@color/blue_btn_bg_pressed_color"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SungBin"
+                android:textColor="@android:color/white"
+                android:layout_gravity="top|left"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="70dp"
+                android:textSize="25sp"/>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="105dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Android Programmer"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textSize="14sp"/>
+
+        </LinearLayout>
+
+    </com.github.florent37.diagonallayout.DiagonalLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="-50dp"
+            android:weightSum="3">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_weight="1"
+                android:src="@drawable/profile_image_preview"
+                android:transitionName="profile_image"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/colorAccent"/>
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="올린 사진"
+                    android:textStyle="bold"
+                    android:textColor="#3E3E3E"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:id="@+id/textView"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#3E3E3E"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="올린 영상"
+                    android:textStyle="bold"
+                    android:textColor="#3E3E3E"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#3E3E3E"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/now_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:text="@string/input_now_text"/>
+
+
+</LinearLayout>

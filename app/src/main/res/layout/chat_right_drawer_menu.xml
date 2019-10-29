@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingTop="?attr/actionBarSize"
+                android:layout_margin="@dimen/normal_margin"
+                tools:ignore="ContentDescription">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/noti_onoff"
+            android:layout_marginEnd="15dp"
+            android:paddingTop="3dp"
+            android:text="@string/set_chatting_noti"/>
+
+    <ImageButton
+            android:background="@color/float_transparent"
+            android:id="@+id/noti_onoff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notifications_gray_24dp"
+            android:layout_alignParentEnd="true"/>
+
+    <TextView
+            android:layout_below="@id/noti_onoff"
+            android:id="@+id/roomUserList"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chat_room_user_list"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:textSize="20sp"/>
+
+    <TextView
+            android:id="@+id/deving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomUserList"
+            android:text="@string/will_be_added"
+            android:layout_alignParentEnd="true"
+            android:textSize="20sp"/>
+
+    <TextView
+            android:id="@+id/getRoomUid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/copy_room_uid"
+            android:textStyle="italic"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"/>
+
+</RelativeLayout>

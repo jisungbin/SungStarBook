@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_login_way"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"/>
+
+    <com.karlgao.materialroundbutton.MaterialButton
+            android:id="@+id/guest_login_join"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/kakao_login_frame"
+            app:mb_borderColor="#9e9e9e"
+            app:mb_borderWidth="2dp"
+            app:mb_buttonColor="#ffffff"
+            app:mb_buttonType="raised"
+            app:mb_cornerRadius="12dp"
+            app:mb_rippleColor="#cfcfcf"
+            app:mb_text="게스트 로그인"
+            app:mb_textColor="#9e9e9e"
+            app:mb_textSize="16sp"/>
+
+    <com.karlgao.materialroundbutton.MaterialButton
+            android:id="@+id/guest_login_reg"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/kakao_login_frame"
+            app:mb_borderColor="#9e9e9e"
+            app:mb_borderWidth="2dp"
+            app:mb_buttonColor="#ffffff"
+            app:mb_buttonType="raised"
+            app:mb_cornerRadius="12dp"
+            app:mb_rippleColor="#cfcfcf"
+            app:mb_text="게스트 회원가입"
+            app:mb_textColor="#9e9e9e"
+            app:mb_textSize="16sp"/>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebook_login_origin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+
+        <com.karlgao.materialroundbutton.MaterialButton
+                android:id="@+id/facebook_login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:mb_borderColor="#9e9e9e"
+                app:mb_borderWidth="2dp"
+                app:mb_buttonColor="#ffffff"
+                app:mb_buttonType="raised"
+                app:mb_cornerRadius="12dp"
+                app:mb_rippleColor="#cfcfcf"
+                app:mb_text="페이스북 로그인"
+                app:mb_textColor="#9e9e9e"
+                app:mb_textSize="16sp"/>
+
+    </FrameLayout>
+
+    <com.karlgao.materialroundbutton.MaterialButton
+            android:id="@+id/sns_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:mb_borderColor="#9e9e9e"
+            app:mb_borderWidth="2dp"
+            app:mb_buttonColor="#ffffff"
+            app:mb_buttonType="raised"
+            app:mb_cornerRadius="12dp"
+            app:mb_rippleColor="#cfcfcf"
+            app:mb_text="전화번호로 로그인"
+            app:mb_textColor="#9e9e9e"
+            app:mb_textSize="16sp"/>
+
+    <com.karlgao.materialroundbutton.MaterialButton
+            android:id="@+id/no_name_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:mb_borderColor="#9e9e9e"
+            app:mb_borderWidth="2dp"
+            app:mb_buttonColor="#ffffff"
+            app:mb_buttonType="raised"
+            app:mb_cornerRadius="12dp"
+            app:mb_rippleColor="#cfcfcf"
+            app:mb_text="익명 로그인"
+            app:mb_textColor="#9e9e9e"
+            app:mb_textSize="16sp"/>
+
+</LinearLayout>

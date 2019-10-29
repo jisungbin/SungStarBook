@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="RtlHardcoded">
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/my_profile_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:contentPadding="8dp"
+            app:cardElevation="7dp"
+            app:cardCornerRadius="20dp">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/my_profile_image"
+                    android:transitionName="profile_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/profile_image_preview"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/colorAccent"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center|left"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/now_message"
+                    android:textColor="@color/colorAccent"
+                    android:layout_toEndOf="@id/my_profile_image"
+                    android:layout_toStartOf="@id/see_my_profile"/>
+
+            <com.karlgao.materialroundbutton.MaterialButton
+                    android:id="@+id/see_my_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    app:mb_borderColor="@color/colorAccent"
+                    app:mb_borderWidth="2dp"
+                    app:mb_buttonColor="#ffffff"
+                    app:mb_buttonType="raised"
+                    app:mb_cornerRadius="22dp"
+                    app:mb_rippleColor="#cfcfcf"
+                    app:mb_text="   내 프로필   "
+                    app:mb_textColor="@color/colorAccent"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+            android:layout_marginTop="5dp"
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/my_profile_card_view"
+            android:background="@color/colorAccent"/>
+
+</RelativeLayout>

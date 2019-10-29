@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        drawable="@drawable/ic_person_outline_gray_24dp"
+        text="@string/friend" />
+
+    <tab
+        drawable="@drawable/ic_chat_gray_24dp"
+        text="@string/chatting" />
+
+    <tab
+        drawable="@drawable/ic_image_gray_24dp"
+        text="@string/image_gallery" />
+
+    <tab
+        drawable="@drawable/ic_video_gray_24dp"
+        text="@string/video_gallery" />
+</tabs>
