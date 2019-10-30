@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:padding="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="RtlHardcoded">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_margin="@dimen/half_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="RtlHardcoded">
 
     <androidx.cardview.widget.CardView
+            android:layout_margin="@dimen/half_margin"
             android:id="@+id/my_profile_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             app:contentPadding="8dp"
             app:cardElevation="7dp"
             app:cardCornerRadius="20dp">
@@ -29,16 +30,33 @@
                     app:civ_border_width="2dp"
                     app:civ_border_color="@color/colorAccent"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:gravity="center|left"
+            <RelativeLayout
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/now_message"
-                    android:textColor="@color/colorAccent"
-                    android:layout_toEndOf="@id/my_profile_image"
-                    android:layout_toStartOf="@id/see_my_profile"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@id/my_profile_image"
+                    android:layout_toLeftOf="@id/see_my_profile">
+
+                <TextView
+                        android:id="@+id/my_profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:textStyle="bold"
+                        android:singleLine="true"
+                        android:text="@string/now_room_msg"
+                        android:textColor="#000"/>
+
+                <TextView
+                        android:id="@+id/my_profile_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:layout_below="@id/my_profile_name"
+                        android:text="@string/now_room_msg"
+                        android:textColor="@color/colorAccent"/>
+
+            </RelativeLayout>
 
             <com.karlgao.materialroundbutton.MaterialButton
                     android:id="@+id/see_my_profile"
@@ -59,11 +77,33 @@
     </androidx.cardview.widget.CardView>
 
     <View
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_marginEnd="@dimen/half_margin"
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_below="@id/my_profile_card_view"
             android:background="@color/colorAccent"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_margin="@dimen/half_margin"
+            android:layout_below="@id/view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/refresh">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/friends_list"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                android:layout_above="@id/view"
+                android:divider="#ffffff"
+                android:dividerHeight="0px"
+                android:overScrollMode="never"
+                android:stackFromBottom="true"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

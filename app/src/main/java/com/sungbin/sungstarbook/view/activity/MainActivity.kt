@@ -29,7 +29,6 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.shashank.sony.fancytoastlib.FancyToast
 import com.sungbin.sungstarbook.dto.ChatRoomListItem
@@ -40,7 +39,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import androidx.annotation.Nullable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
@@ -48,7 +47,6 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.sungbin.sungstarbook.BuildConfig
 import com.sungbin.sungstarbook.utils.Utils.toast
-import me.leolin.shortcutbadger.ShortcutBadger
 import java.lang.Exception
 
 
@@ -66,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
-        ShortcutBadger.removeCount(applicationContext)
 
         val permissionlistener = object : PermissionListener {
             override fun onPermissionGranted() {
@@ -132,7 +129,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val uid = Utils.readData(applicationContext, "uid", "null")!!
-        val myName:String = Utils.readData(applicationContext, "myName", "null")!!
         var profilePicUri:String? = null
 
         val storage = FirebaseStorage.getInstance()
@@ -340,8 +336,6 @@ class MainActivity : AppCompatActivity() {
 
                     dialog.setView(container)
                     dialog.setPositiveButton("확인") { _, _ ->
-                        val preMyRoom = Utils.readData(act, "myRoom", "null")
-                        val nowMyRoom = "$preMyRoom/$roomUid"
                         val roomData = ChatRoomListItem(
                             textInputEditText.text.toString(),
                             time,
@@ -353,7 +347,6 @@ class MainActivity : AppCompatActivity() {
                         toast(act, "채팅방이 생성되었습니다." +
                                 "\n화면을 위에서 아래로 당겨서 새로고침을 해주세요.",
                             FancyToast.LENGTH_SHORT, FancyToast.SUCCESS)
-                        Utils.saveData(act, "myRoom", nowMyRoom)
                     }
                     dialog.show()
 
@@ -386,17 +379,26 @@ class MainActivity : AppCompatActivity() {
                     dialog.setView(container)
                     dialog.setPositiveButton("확인") { _, _ ->
                         val roomUid = textInputEditText.text.toString()
-                        val preMyRoom = Utils.readData(act, "myRoom", "null")
-                        if(preMyRoom!!.contains(roomUid)){
-                            toast(act, "이미 들어가있는 채팅방 입니다.",
-                                FancyToast.LENGTH_SHORT, FancyToast.WARNING)
-                            return@setPositiveButton
-                        }
-                        val nowMyRoom = "$preMyRoom/$roomUid"
-                        toast(act, "채팅방에 입장하였습니다." +
-                                "\n당겨서 새로고침을 해주세요.",
-                            FancyToast.LENGTH_SHORT, FancyToast.SUCCESS)
-                        Utils.saveData(act, "myRoom", nowMyRoom)
+                        reference.child(roomUid)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onCancelled(p0: DatabaseError) {
+
+                            }
+
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.value == null) {
+                                    toast(act, "존재하지 않는 참여코드 입니다.",
+                                        FancyToast.LENGTH_SHORT, FancyToast.WARNING)
+                                }
+                                else {
+
+
+                                    toast(act, "채팅방에 입장하였습니다." +
+                                            "\n당겨서 새로고침을 해주세요.",
+                                        FancyToast.LENGTH_SHORT, FancyToast.SUCCESS)
+                                }
+                            }
+                        })
                     }
                     dialog.show()
                 }

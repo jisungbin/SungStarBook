@@ -1,12 +1,10 @@
 @file:Suppress("NAME_SHADOWING")
 
-package com.sungbin.sungstarbook.adapter
+package com.sungbin.sungstarbook.view.adapter
 
 import android.annotation.SuppressLint
 import  android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Environment
@@ -24,7 +22,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.facebook.FacebookSdk
 import com.google.firebase.storage.FirebaseStorage
@@ -32,7 +29,6 @@ import com.shashank.sony.fancytoastlib.FancyToast
 import com.sungbin.sungstarbook.R
 import com.sungbin.sungstarbook.utils.Utils
 import com.sungbin.sungstarbook.view.activity.ImageViewerActivity
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
@@ -58,7 +54,8 @@ class ChatAdapter(private val list: ArrayList<ChattingItem>?, private val act:Ac
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ChatViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.chat_content_view, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.chat_content_view, viewGroup, false)
         return ChatViewHolder(view)
     }
 
@@ -79,7 +76,6 @@ class ChatAdapter(private val list: ArrayList<ChattingItem>?, private val act:Ac
             .skipMemoryCache(true)
             .format(DecodeFormat.PREFER_ARGB_8888)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .placeholder(R.drawable.loading_image)
 
         if(uid == myUid) name = myName
 
@@ -117,7 +113,6 @@ class ChatAdapter(private val list: ArrayList<ChattingItem>?, private val act:Ac
                     val imageFile = File(Environment.getExternalStorageDirectory().absolutePath +
                             "/SungStarBook/Image/${contentUid}.gif")
                     if(imageFile.exists()) {
-                        Log.d("SS", "SS")
                         if(isGif) Glide.with(act).asGif().load(imageFile).apply(options)
                             .into(viewholder.content_image_R)
                         else Glide.with(act).load(imageFile).apply(options)

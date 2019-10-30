@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             tools:visibility="visible">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_alignParentStart="true"
                 android:id="@+id/profile_image_L"
                 android:layout_width="45dp"

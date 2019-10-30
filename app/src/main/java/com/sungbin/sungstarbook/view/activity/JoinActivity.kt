@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.sungbin.sungstarbook.utils.Utils
 import com.theartofdev.edmodo.cropper.CropImage
@@ -26,6 +27,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.shashank.sony.fancytoastlib.FancyToast
 import com.sungbin.sungstarbook.R
+import com.sungbin.sungstarbook.dto.MyInformationItem
 import org.apache.commons.lang3.StringUtils
 import java.lang.Exception
 
@@ -41,7 +43,6 @@ class JoinActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val uid = intent.getStringExtra("uid")
-        Utils.saveData(applicationContext, "uid", uid)
 
         fab.setOnClickListener {
             when {
@@ -61,8 +62,7 @@ class JoinActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
                 else -> {
-                    Utils.saveData(applicationContext, "myName", input_nickname.text.toString())
-                    uploadProfileImage(profileUri!!, uid)
+                    uploadProfileImage(profileUri!!, uid, input_nickname.text.toString())
                 }
             }
         }
@@ -148,7 +148,7 @@ class JoinActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadProfileImage(url: Uri, uid:String){
+    private fun uploadProfileImage(url: Uri, uid: String, name: String){
         val pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
         pDialog.titleText = "프로필 사진 업로드중..."
@@ -157,13 +157,29 @@ class JoinActivity : AppCompatActivity() {
 
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference
-            .child("Profile_Image/$uid/Profile.png")
+            .child("Profile Image/$uid/Profile.png")
         storageRef.putFile(url).addOnSuccessListener {
             pDialog.dismissWithAnimation()
             Utils.toast(applicationContext, "프로필 사진이 업로드 되었습니다.",
                 FancyToast.LENGTH_SHORT, FancyToast.SUCCESS)
-            startActivity(Intent(applicationContext, MainActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+
+            val myData = MyInformationItem(
+                name,
+                "상태메세지가 없습니다.",
+                uid,
+                null,
+                null
+            )
+
+            Utils.saveData(applicationContext, "uid", uid)
+
+            FirebaseDatabase.getInstance().reference
+                .child("UserDB").child(uid).push().setValue(myData
+                ) { error, _ ->
+                    if(error == null) startActivity(Intent(applicationContext, MainActivity::class.java)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                }
+
         }.addOnFailureListener {
             pDialog.dismissWithAnimation()
             Utils.toast(applicationContext, "프로필 사진이 업로드중에 문제가 발생하였습니다.\n\n${it.cause}",

@@ -4,7 +4,18 @@
                 android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:ignore="RtlHardcoded">
+                tools:ignore="RtlHardcoded, HardcodedText">
+
+    <TextView
+            android:id="@+id/null_chat_room"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="참여중인 채팅방이 없습니다."
+            android:textColor="@android:color/black"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="20sp"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"

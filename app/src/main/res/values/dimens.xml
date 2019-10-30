@@ -1,5 +1,6 @@
 <resources>
     <dimen name="normal_margin">16dp</dimen>
+    <dimen name="half_margin">8dp</dimen>
     <dimen name="dialog_margin">25dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="editor_size">35dp</dimen>

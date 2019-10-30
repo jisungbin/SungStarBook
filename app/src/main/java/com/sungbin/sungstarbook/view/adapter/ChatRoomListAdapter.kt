@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.adapter
+package com.sungbin.sungstarbook.view.adapter
 
 import android.app.Activity
 import android.content.Intent
@@ -26,9 +26,9 @@ import java.io.ByteArrayOutputStream
 
 class ChatRoomListAdapter(private val list: ArrayList<ChatRoomListItem>?,
                           private val act: Activity) :
-    RecyclerView.Adapter<ChatRoomListAdapter.ChatViewHolder>() {
+    RecyclerView.Adapter<ChatRoomListAdapter.RoomViewHolder>() {
 
-    inner class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var roomImage: CircleImageView = view.findViewById(R.id.room_image)
         var roomTitle: TextView = view.findViewById(R.id.room_title)
         var roomMsg: TextView = view.findViewById(R.id.room_msg)
@@ -36,12 +36,13 @@ class ChatRoomListAdapter(private val list: ArrayList<ChatRoomListItem>?,
         var view: CardView = view.findViewById(R.id.my_profile_card_view)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ChatViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.chat_room_list_view, viewGroup, false)
-        return ChatViewHolder(view)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RoomViewHolder {
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.chat_room_list_view, viewGroup, false)
+        return RoomViewHolder(view)
     }
 
-    override fun onBindViewHolder(@NonNull viewholder: ChatViewHolder, position: Int) {
+    override fun onBindViewHolder(@NonNull viewholder: RoomViewHolder, position: Int) {
         val name = list!![position].name
         val time = list[position].time
         val msg = list[position].msg
@@ -84,6 +85,14 @@ class ChatRoomListAdapter(private val list: ArrayList<ChatRoomListItem>?,
 
     override fun getItemCount(): Int {
         return list?.size ?: 0
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     fun getItem(position: Int): ChatRoomListItem {

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.sungstarbook.R
-import com.sungbin.sungstarbook.adapter.ChatRoomListAdapter
+import com.sungbin.sungstarbook.view.adapter.ChatRoomListAdapter
 import com.sungbin.sungstarbook.dto.ChatRoomListItem
 import com.sungbin.sungstarbook.utils.Utils
 import org.apache.commons.lang3.StringUtils
@@ -27,6 +27,7 @@ import android.graphics.Canvas
 import android.text.InputFilter
 import android.view.Gravity
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -35,6 +36,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.sungbin.sungstarbook.dto.MyInformationItem
+import com.sungbin.sungstarbook.utils.FirebaseUtils
 import de.hdodenhof.circleimageview.CircleImageView
 import gun0912.tedbottompicker.TedBottomPicker
 
@@ -48,7 +51,9 @@ class ChatRoom : Fragment() {
     private var adapter:ChatRoomListAdapter? = null
     private var reference:DatabaseReference? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
         reference = FirebaseDatabase.getInstance().reference.child("RoomDB")
@@ -56,13 +61,41 @@ class ChatRoom : Fragment() {
         items = ArrayList()
         adapter = ChatRoomListAdapter(items, activity!!)
 
-        var myRoom = Utils.readData(context!!, "myRoom", "null")
-        var myRoomCount = StringUtils.countMatches(myRoom, "/")
-        val view = inflater.inflate(R.layout.fragment_chatting, null)
+        val view = inflater.inflate(R.layout.fragment_chat_room, null)
 
         val chatRoomListView = view.findViewById<RecyclerView>(R.id.chatRoomList)
         chatRoomListView.adapter = adapter
         chatRoomListView.layoutManager = LinearLayoutManager(context)
+
+        var myData: MyInformationItem? = null
+        val reference = FirebaseDatabase.getInstance().reference
+            .child("UserDB").child(uid!!)
+        reference.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                myData = dataSnapshot.getValue(MyInformationItem::class.java)
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+
+        if(myData!!.rooms == null) {
+            chatRoomListView.visibility = View.GONE
+            view.findViewById<TextView>(R.id.null_chat_room).visibility = View.VISIBLE
+        }
 
         val swipeController = SwipeController(object : SwipeControllerActions() {
             override fun onRightClicked(position: Int) { //방 삭제
@@ -109,35 +142,8 @@ class ChatRoom : Fragment() {
             }
         }
 
-        if(myRoom != "null") {
-            items!!.clear()
-            for (i in 1..myRoomCount) {
-                try {
-                    reference!!.child(myRoom!!.split("/")[i])
-                        .addValueEventListener(postListener)
-                }
-                catch (e: Exception){
-                    Utils.toast(context!!, "방을 불러올 수 없습니다.", FancyToast.LENGTH_SHORT, FancyToast.WARNING)
-                }
-            }
-        }
-
         view.findViewById<SwipeRefreshLayout>(R.id.refresh).setOnRefreshListener {
             items!!.clear()
-            myRoom = Utils.readData(context!!, "myRoom", "null")
-            myRoomCount = StringUtils.countMatches(myRoom, "/")
-
-            if(myRoom != "null") {
-                for (i in 1..myRoomCount) {
-                    try {
-                        reference!!.child(myRoom!!.split("/")[i])
-                            .addValueEventListener(postListener)
-                    }
-                    catch (e: Exception){
-                        Utils.toast(context!!, "방을 불러올 수 없습니다.", FancyToast.LENGTH_SHORT, FancyToast.WARNING)
-                    }
-                }
-            }
 
             view.findViewById<SwipeRefreshLayout>(R.id.refresh).setColorSchemeColors(Color.parseColor("#9e9e9e"))
             view.findViewById<SwipeRefreshLayout>(R.id.refresh).isRefreshing = false

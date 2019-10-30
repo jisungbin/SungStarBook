@@ -12,6 +12,7 @@ import android.content.Intent
 import com.sungbin.sungstarbook.utils.Utils
 
 
+@Suppress("DEPRECATION")
 class ErrorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

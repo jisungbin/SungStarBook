@@ -14,7 +14,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.sungbin.sungstarbook.R
 import kotlinx.android.synthetic.main.content_chat.*
-import com.sungbin.sungstarbook.adapter.ChatAdapter
+import com.sungbin.sungstarbook.view.adapter.ChatAdapter
 import com.sungbin.sungstarbook.utils.Utils
 import kotlinx.android.synthetic.main.activity_chat.*
 import android.annotation.SuppressLint
@@ -60,7 +60,7 @@ class ChattingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         roomName = intent.getStringExtra("name")
-        roomUid = intent.getStringExtra("roomUid").replace(":","_")
+        roomUid = intent.getStringExtra("roomUid")//.replace(":","_")
 
         toolbar.title = ""
         toolbar_title.text = roomName
@@ -201,7 +201,7 @@ class ChattingActivity : AppCompatActivity() {
                         }
                         .show {
                             val imageName = it.toString().substring(it.toString().lastIndexOf("/") + 1, it.toString().length)
-                            val imageType = imageName.substring(imageName.lastIndexOf(".") + 1, imageName!!.length).toLowerCase()
+                            val imageType = imageName.substring(imageName.lastIndexOf(".") + 1, imageName.length).toLowerCase()
                             val isGif = imageType.contains("gif")
                             val resultUri = it.toString()
                             val imageUid = getRandomString(13)
