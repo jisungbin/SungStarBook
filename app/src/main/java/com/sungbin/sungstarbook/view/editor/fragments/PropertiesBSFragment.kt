@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.view.photo_editor.fragments
+package com.sungbin.sungstarbook.view.editor.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sungbin.sungstarbook.R
-import com.sungbin.sungstarbook.view.photo_editor.ColorPickerAdapter
+import com.sungbin.sungstarbook.view.editor.ColorPickerAdapter
 
 import java.util.Objects
 

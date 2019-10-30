@@ -19,7 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sungbin.sungstarbook.R
 import com.sungbin.sungstarbook.dto.ChatRoomListItem
 import com.sungbin.sungstarbook.view.activity.ImageViewerActivity
-import com.sungbin.sungstarbook.view.content_view.ChattingActivity
+import com.sungbin.sungstarbook.view.activity.ChattingActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 

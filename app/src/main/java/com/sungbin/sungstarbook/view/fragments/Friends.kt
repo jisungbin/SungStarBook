@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.view.main_fragment
+package com.sungbin.sungstarbook.view.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent

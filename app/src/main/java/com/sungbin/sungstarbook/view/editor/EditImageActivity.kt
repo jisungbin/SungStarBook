@@ -1,6 +1,6 @@
 @file:Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-package com.sungbin.sungstarbook.view.photo_editor
+package com.sungbin.sungstarbook.view.editor
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -24,7 +24,6 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Objects
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,15 +34,15 @@ import com.google.firebase.storage.FirebaseStorage
 import com.shashank.sony.fancytoastlib.FancyToast
 import com.sungbin.sungstarbook.R
 import com.sungbin.sungstarbook.dto.ChattingItem
-import com.sungbin.sungstarbook.view.photo_editor.base.BaseActivity
-import com.sungbin.sungstarbook.view.photo_editor.filters.FilterListener
-import com.sungbin.sungstarbook.view.photo_editor.filters.FilterViewAdapter
-import com.sungbin.sungstarbook.view.photo_editor.fragments.EmojiBSFragment
-import com.sungbin.sungstarbook.view.photo_editor.fragments.PropertiesBSFragment
-import com.sungbin.sungstarbook.view.photo_editor.fragments.StickerBSFragment
-import com.sungbin.sungstarbook.view.photo_editor.fragments.TextEditorDialogFragment
-import com.sungbin.sungstarbook.view.photo_editor.tools.EditingToolsAdapter
-import com.sungbin.sungstarbook.view.photo_editor.tools.ToolType
+import com.sungbin.sungstarbook.view.editor.base.BaseActivity
+import com.sungbin.sungstarbook.view.editor.filters.FilterListener
+import com.sungbin.sungstarbook.view.editor.filters.FilterViewAdapter
+import com.sungbin.sungstarbook.view.editor.fragments.EmojiBSFragment
+import com.sungbin.sungstarbook.view.editor.fragments.PropertiesBSFragment
+import com.sungbin.sungstarbook.view.editor.fragments.StickerBSFragment
+import com.sungbin.sungstarbook.view.editor.fragments.TextEditorDialogFragment
+import com.sungbin.sungstarbook.view.editor.tools.EditingToolsAdapter
+import com.sungbin.sungstarbook.view.editor.tools.ToolType
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.PhotoEditorView

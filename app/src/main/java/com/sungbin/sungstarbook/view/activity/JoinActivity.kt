@@ -27,6 +27,7 @@ import com.gun0912.tedpermission.TedPermission
 import com.shashank.sony.fancytoastlib.FancyToast
 import com.sungbin.sungstarbook.R
 import org.apache.commons.lang3.StringUtils
+import java.lang.Exception
 
 class JoinActivity : AppCompatActivity() {
 
@@ -75,41 +76,57 @@ class JoinActivity : AppCompatActivity() {
         }
 
         profile_image.setOnClickListener {
-            val permissionlistener = object : PermissionListener {
-                override fun onPermissionGranted() {
-                    TedBottomPicker.with(this@JoinActivity)
-                        .setImageProvider { imageView, imageUri ->
-                            val options = RequestOptions().centerCrop()
-                            Glide.with(baseContext).load(imageUri).apply(options).into(imageView)
-                        }
-                        .show {
-                            CropImage.activity(it)
-                                .setCropShape(CropImageView.CropShape.OVAL)
-                                .setScaleType(CropImageView.ScaleType.FIT_CENTER)
-                                .setAutoZoomEnabled(true)
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .start(this@JoinActivity)
-                        }
+            try {
+                val permissionlistener = object : PermissionListener {
+                    override fun onPermissionGranted() {
+                        TedBottomPicker.with(this@JoinActivity)
+                            .setImageProvider { imageView, imageUri ->
+                                val options = RequestOptions().centerCrop()
+                                Glide.with(baseContext).load(imageUri)
+                                    .apply(options).into(imageView)
+                            }
+                            .show {
+                                CropImage.activity(it)
+                                    .setCropShape(CropImageView.CropShape.OVAL)
+                                    .setScaleType(CropImageView.ScaleType.FIT_CENTER)
+                                    .setAutoZoomEnabled(true)
+                                    .setGuidelines(CropImageView.Guidelines.ON)
+                                    .setFixAspectRatio(true)
+                                    .start(this@JoinActivity)
+                            }
+                    }
+
+                    override fun onPermissionDenied(deniedPermissions: List<String>) {
+                        Utils.toast(
+                            applicationContext, "권한 사용에 동의 해 주셔야 프로필 사진을 불러올 수 있습니다.\n" +
+                                    "내부메모리 접근 권한 사용이 거절되어, 프로필 사진이 기본 사진으로 대채됩니다.",
+                            FancyToast.WARNING, FancyToast.LENGTH_SHORT
+                        )
+                    }
                 }
 
-                override fun onPermissionDenied(deniedPermissions: List<String>) {
-                    Utils.toast(applicationContext, "권한 사용에 동의 해 주셔야 프로필 사진을 불러올 수 있습니다.\n" +
-                            "내부메모리 접근 권한 사용이 거절되어, 프로필 사진이 기본 사진으로 대채됩니다.",
-                        FancyToast.WARNING, FancyToast.LENGTH_SHORT)
-                }
+                TedPermission.with(this)
+                    .setPermissionListener(permissionlistener)
+                    .setRationaleTitle("권한 필요")
+                    .setRationaleMessage(
+                        "프로필 사진으로 지정할 사진을 불러오기 위해서 내부메모리에 접근 권한이 필요합니다.\n" +
+                                "권한 사용을 허용해 주세요."
+                    )
+                    .setDeniedTitle("내부 메모리 접근 권한 필요")
+                    .setDeniedMessage(
+                        "프로필 사진으로 지정할 사진을 불러오기 위해서 내부메모리에 접근 권한이 필요합니다.\n" +
+                                "어플 설정애서 해당 권한의 사용을 허락해 주세요."
+                    )
+                    .setPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                    .check()
             }
-
-            TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleTitle("권한 필요")
-                .setRationaleMessage("프로필 사진으로 지정할 사진을 불러오기 위해서 내부메모리에 접근 권한이 필요합니다.\n" +
-                        "권한 사용을 허용해 주세요.")
-                .setDeniedTitle("내부 메모리 접근 권한 필요")
-                .setDeniedMessage("프로필 사진으로 지정할 사진을 불러오기 위해서 내부메모리에 접근 권한이 필요합니다.\n" +
-                        "어플 설정애서 해당 권한의 사용을 허락해 주세요.")
-                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .check()
+            catch (e: Exception){
+                Utils.error(this, "프로필 사진을 선택하는 도중에 오류가 발생했습니다." +
+                        "\n\n${e.message}")
+            }
         }
 
     }
@@ -125,7 +142,8 @@ class JoinActivity : AppCompatActivity() {
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(profile_image)
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
-                Utils.error(this, "프로필 사진을 선택하는 도중에 오류가 발생했습니다.\n$error")
+                Utils.error(this, "프로필 사진을 선택하는 도중에 오류가 발생했습니다." +
+                        "\n\n$error")
             }
         }
     }

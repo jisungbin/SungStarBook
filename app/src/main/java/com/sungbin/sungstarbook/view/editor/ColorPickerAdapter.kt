@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.sungbin.sungstarbook.view.photo_editor
+package com.sungbin.sungstarbook.view.editor
 
 import android.content.Context
 import android.graphics.Color

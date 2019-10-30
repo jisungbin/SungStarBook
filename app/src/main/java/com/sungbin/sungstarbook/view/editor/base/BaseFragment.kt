@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.view.photo_editor.base
+package com.sungbin.sungstarbook.view.editor.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

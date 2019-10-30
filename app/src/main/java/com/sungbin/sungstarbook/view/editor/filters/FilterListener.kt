@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.view.photo_editor.filters
+package com.sungbin.sungstarbook.view.editor.filters
 
 import ja.burhanrashid52.photoeditor.PhotoFilter
 

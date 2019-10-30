@@ -11,7 +11,6 @@ import android.content.Intent
 import androidx.core.app.NotificationManagerCompat
 import com.sungbin.sungstarbook.R
 import com.sungbin.sungstarbook.view.activity.MainActivity
-import com.sungbin.sungstarbook.view.content_view.ChattingActivity
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL

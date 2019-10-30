@@ -14,8 +14,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.iammert.library.readablebottombar.ReadableBottomBar
 import com.sungbin.sungstarbook.R
 import com.sungbin.sungstarbook.utils.Utils
-import com.sungbin.sungstarbook.view.main_fragment.ChatRoom
-import com.sungbin.sungstarbook.view.main_fragment.Friends
+import com.sungbin.sungstarbook.view.fragments.ChatRoom
+import com.sungbin.sungstarbook.view.fragments.Friends
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -23,8 +23,6 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.text.InputFilter
-import android.text.InputType
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -41,24 +39,17 @@ import java.util.*
 import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import androidx.annotation.Nullable
-import com.facebook.login.widget.LoginButton
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.karlgao.materialroundbutton.MaterialButton
 import com.sungbin.sungstarbook.BuildConfig
 import com.sungbin.sungstarbook.utils.Utils.toast
-import kotlinx.android.synthetic.main.chat_right_drawer_menu.*
 import me.leolin.shortcutbadger.ShortcutBadger
-import org.apache.commons.lang3.StringUtils
 import java.lang.Exception
-import java.util.concurrent.TimeUnit
 
 
 @SuppressLint("SimpleDateFormat")

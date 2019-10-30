@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.view.photo_editor.filters
+package com.sungbin.sungstarbook.view.editor.filters
 
 import android.content.Context
 import android.graphics.Bitmap

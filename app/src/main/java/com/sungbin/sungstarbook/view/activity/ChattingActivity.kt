@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.sungbin.sungstarbook.view.content_view
+package com.sungbin.sungstarbook.view.activity
 
 import android.Manifest
 import android.graphics.Color
@@ -36,7 +36,7 @@ import com.google.firebase.database.DataSnapshot
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.sungbin.sungstarbook.utils.FirebaseUtils
-import com.sungbin.sungstarbook.view.photo_editor.EditImageActivity
+import com.sungbin.sungstarbook.view.editor.EditImageActivity
 import gun0912.tedbottompicker.TedBottomPicker
 
 

@@ -1,4 +1,4 @@
-package com.sungbin.sungstarbook.view.photo_editor.fragments
+package com.sungbin.sungstarbook.view.editor.fragments
 
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.sungstarbook.R
-import com.sungbin.sungstarbook.view.photo_editor.ColorPickerAdapter
+import com.sungbin.sungstarbook.view.editor.ColorPickerAdapter
 
 import java.util.Objects
 
