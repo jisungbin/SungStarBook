@@ -129,24 +129,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         val uid = Utils.readData(applicationContext, "uid", "null")!!
-        var profilePicUri:String? = null
-
-        val storage = FirebaseStorage.getInstance()
-        val storageRef = storage.reference
-            .child("Profile_Image/$uid/Profile.png")
-        storageRef.downloadUrl.addOnSuccessListener { uri ->
-            profilePicUri = uri.toString()
-        }
-        storageRef.downloadUrl.addOnFailureListener { e ->
-            Utils.error(applicationContext, e)
-        }
 
         fab.setOnClickListener {
             val bottomSheetDialog = ChatAddSheetDialog(
                 this@MainActivity,
                 makeRandomString(),
                 getTime(),
-                profilePicUri!!,
+                uid,
                 reference
             )
             bottomSheetDialog.show(supportFragmentManager, "More Login")
@@ -288,7 +277,7 @@ class MainActivity : AppCompatActivity() {
         private var act: Activity,
         private var roomUid: String,
         private var time: String,
-        private var profilePicUri: String,
+        private var uri: String,
         private var reference: DatabaseReference) : BottomSheetDialogFragment(), View.OnClickListener {
 
         private var room_join: LinearLayout? = null
@@ -340,10 +329,10 @@ class MainActivity : AppCompatActivity() {
                             textInputEditText.text.toString(),
                             time,
                             "[채팅방을 생성했습니다]",
-                            profilePicUri,
+                            uri,
                             roomUid
                         )
-                        reference.child(roomUid).setValue(roomData)
+                        reference.child(roomUid).push().setValue(roomData)
                         toast(act, "채팅방이 생성되었습니다." +
                                 "\n화면을 위에서 아래로 당겨서 새로고침을 해주세요.",
                             FancyToast.LENGTH_SHORT, FancyToast.SUCCESS)

@@ -1,6 +1,6 @@
 @file:Suppress("NAME_SHADOWING")
 
-package com.sungbin.sungstarbook.view.adapter
+package com.sungbin.sungstarbook.view.adapters
 
 import android.annotation.SuppressLint
 import  android.app.Activity
@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Environment
-import android.util.Log
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.sungbin.sungstarbook.dto.ChattingItem

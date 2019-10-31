@@ -1,10 +1,11 @@
-package com.sungbin.sungstarbook.view.adapter
+package com.sungbin.sungstarbook.view.adapters
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.sungbin.sungstarbook.view.activity.ImageViewerActivity
 import com.sungbin.sungstarbook.view.activity.ChattingActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class ChatRoomListAdapter(private val list: ArrayList<ChatRoomListItem>?,
@@ -46,7 +48,7 @@ class ChatRoomListAdapter(private val list: ArrayList<ChatRoomListItem>?,
         val name = list!![position].name
         val time = list[position].time
         val msg = list[position].msg
-        val roomPicUri = list[position].roomPicUri
+        val ownerUid = list[position].roomPicUid
         val roomUid = list[position].roomUid
 
         viewholder.view.setOnClickListener {
@@ -58,29 +60,13 @@ class ChatRoomListAdapter(private val list: ArrayList<ChatRoomListItem>?,
         viewholder.roomMsg.text = msg
         viewholder.roomTime.text = time
         viewholder.roomTitle.text = name
-        Glide.with(act).load(roomPicUri)
+
+        Glide.with(act).load(
+            File(Environment.getExternalStorageDirectory().absolutePath +
+                    "/SungStarBook/Profile Image/$ownerUid.png"))
             .format(DecodeFormat.PREFER_ARGB_8888)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(viewholder.roomImage)
-
-        viewholder.roomImage.setOnClickListener {
-            val image = viewholder.roomImage.drawable
-            val sendBitmap = (image as BitmapDrawable).bitmap
-            val stream = ByteArrayOutputStream()
-            sendBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            val byteArray = stream.toByteArray()
-            val intent = Intent(act, ImageViewerActivity::class.java)
-                .putExtra("image", byteArray).putExtra("tag", "room_image")
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                act,
-                viewholder.roomImage,
-                "room_image")
-            if (Build.VERSION.SDK_INT >= 21) {
-                act.startActivity(intent, options.toBundle())
-            } else act.startActivity(intent)
-
-        }
     }
 
     override fun getItemCount(): Int {

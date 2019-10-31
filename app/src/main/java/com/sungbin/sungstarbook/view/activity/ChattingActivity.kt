@@ -14,7 +14,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.sungbin.sungstarbook.R
 import kotlinx.android.synthetic.main.content_chat.*
-import com.sungbin.sungstarbook.view.adapter.ChatAdapter
+import com.sungbin.sungstarbook.view.adapters.ChatAdapter
 import com.sungbin.sungstarbook.utils.Utils
 import kotlinx.android.synthetic.main.activity_chat.*
 import android.annotation.SuppressLint

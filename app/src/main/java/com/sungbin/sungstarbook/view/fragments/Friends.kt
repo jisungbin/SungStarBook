@@ -2,45 +2,29 @@ package com.sungbin.sungstarbook.view.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
-import com.facebook.FacebookSdk
 import com.facebook.FacebookSdk.getApplicationContext
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.karlgao.materialroundbutton.MaterialButton
-import com.makeramen.roundedimageview.RoundedImageView
-import com.shashank.sony.fancytoastlib.FancyToast
 import com.sungbin.sungstarbook.R
 import com.sungbin.sungstarbook.dto.MyInformationItem
 import com.sungbin.sungstarbook.utils.FirebaseUtils
 import com.sungbin.sungstarbook.utils.Utils
-import com.sungbin.sungstarbook.view.activity.ImageViewerActivity
 import com.sungbin.sungstarbook.view.activity.ProfileViewActivity
-import com.sungbin.sungstarbook.view.adapter.FriendsListAdapter
 import de.hdodenhof.circleimageview.CircleImageView
-import org.w3c.dom.Text
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
@@ -60,29 +44,18 @@ class Friends : Fragment() {
 
         val reference = FirebaseDatabase.getInstance().reference
             .child("UserDB").child(uid)
-        reference.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                val data: MyInformationItem = dataSnapshot.getValue(MyInformationItem::class.java)!!
-                view.findViewById<TextView>(R.id.my_profile_name).text = data.name
+
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val data = dataSnapshot.getValue(MyInformationItem::class.java)
+                view.findViewById<TextView>(R.id.my_profile_name).text = data!!.name
                 view.findViewById<TextView>(R.id.my_profile_msg).text = data.msg
             }
 
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-
-            }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
-
-            }
-
             override fun onCancelled(databaseError: DatabaseError) {
-
             }
-        })
+        }
+        reference.addListenerForSingleValueEvent(postListener)
 
         view.findViewById<MaterialButton>(R.id.see_my_profile).setOnClickListener {
             startActivity(
@@ -95,7 +68,6 @@ class Friends : Fragment() {
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .format(DecodeFormat.PREFER_ARGB_8888)
-            .placeholder(R.drawable.profile_image_preview)
 
         val imageFile = File(
             Environment.getExternalStorageDirectory().absolutePath +
@@ -108,7 +80,7 @@ class Friends : Fragment() {
         else {
             val storage = FirebaseStorage.getInstance()
             val storageRef = storage.reference
-                .child("Profile_Image/$uid/Profile.png")
+                .child("Profile Image/$uid/Profile.png")
             storageRef.downloadUrl.addOnSuccessListener {
                 ImageDownloadTask().execute(uid, it.toString())
                 Glide.with(activity!!).load(it).apply(options)

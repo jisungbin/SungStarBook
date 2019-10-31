@@ -174,10 +174,13 @@ class JoinActivity : AppCompatActivity() {
             Utils.saveData(applicationContext, "uid", uid)
 
             FirebaseDatabase.getInstance().reference
-                .child("UserDB").child(uid).push().setValue(myData
+                .child("UserDB").child(uid).setValue(myData
                 ) { error, _ ->
-                    if(error == null) startActivity(Intent(applicationContext, MainActivity::class.java)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    if(error == null) {
+                        finish()
+                        startActivity(Intent(applicationContext, MainActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    }
                 }
 
         }.addOnFailureListener {
